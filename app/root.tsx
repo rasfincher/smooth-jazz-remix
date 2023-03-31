@@ -1,20 +1,14 @@
-import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
 import { ClerkApp, ClerkCatchBoundary } from "@clerk/remix";
-import styles from "~/styles/shared.css";
-import Header from "~/components/Header";
+import stylesheet from "~/tailwind.css";
 
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
 };
 
-export function links() {
-  return [
-    { rel: "stylesheet", href: "https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css" },
-    { rel: "stylesheet", href: styles },
-  ];
-}
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: stylesheet }];
 
 export const loader: LoaderFunction = (args) => {
   return rootAuthLoader(
@@ -38,7 +32,6 @@ function App() {
         <Links />
       </head>
       <body>
-        <Header />
         <Outlet />
         <ScrollRestoration />
         <Scripts />

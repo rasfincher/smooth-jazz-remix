@@ -1,120 +1,42 @@
 import { SignedIn, SignedOut } from "@clerk/remix";
 import { Link } from "@remix-run/react";
 
-const ClerkFeatures = () => (
-  <Link to="/user" className="cardContent">
-    <img src="/icons/layout.svg" />
-    <div>
-      <h3>Explore features provided by Clerk</h3>
-      <p>Interact with the user button, user profile, and more to preview what your users will see</p>
-    </div>
-    <div className="arrow">
-      <img src="/icons/arrow-right.svg" />
-    </div>
-  </Link>
-);
-
-const SsrDemoLink = () => (
-  <Link to="/ssr-demo" className="cardContent">
-    <img src="/icons/layout.svg" />
-    <div>
-      <h3>Visit the SSR demo page</h3>
-      <p>
-        See how Clerk hydrates the auth state during SSR and CSR, enabling server-side generation even for
-        authenticated pages
-      </p>
-    </div>
-    <div className="arrow">
-      <img src="/icons/arrow-right.svg" />
-    </div>
-  </Link>
-);
-
-const SignupLink = () => (
-  <Link to="/sign-up" className="cardContent">
-    <img src="/icons/user-plus.svg" />
-    <div>
-      <h3>Sign up for an account</h3>
-      <p>Sign up and sign in to explore all the features provided by Clerk out-of-the-box</p>
-    </div>
-    <div className="arrow">
-      <img src="/icons/arrow-right.svg" />
-    </div>
-  </Link>
-);
-
-// Main component using <SignedIn> and <SignedOut>
-//
-// The SignedIn and SignedOut components are used to control rendering depending
-// on whether or not a visitor is signed in.
-//
-// https://docs.clerk.dev/frontend/react/signedin-and-signedout
-const Main = () => (
-  <main className="main">
-    <h1 className="title">Welcome to your new app</h1>
-    <SignedIn>
-      <p className="description">You have successfully signed in</p>
-    </SignedIn>
-    <SignedOut>
-      <p className="description">Sign up for an account to get started</p>
-    </SignedOut>
-
-    <div className="cards">
-      <SignedIn>
-        <div className="card">
-          <ClerkFeatures />
-        </div>
-      </SignedIn>
-      <SignedIn>
-        <div className="card">
-          <SsrDemoLink />
-        </div>
-      </SignedIn>
-      <SignedOut>
-        <div className="card">
-          <SignupLink />
-        </div>
-      </SignedOut>
-      <div className="card">
-        <a href="https://dashboard.clerk.dev/last-active?utm_source=github&utm_medium=starter_repos&utm_campaign=remix_starter" target="_blank" rel="noreferrer" className="cardContent">
-          <img src="/icons/settings.svg" />
-          <div>
-            <h3>Configure settings for your app</h3>
-            <p>Visit Clerk to manage instances and configure settings for user management, theme, and more</p>
-          </div>
-          <div className="arrow">
-            <img src="/icons/arrow-right.svg" />
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <div className="links">
-      <a href="https://clerk.dev/docs?utm_source=github&utm_medium=starter_repos&utm_campaign=remix_starter" target="_blank" rel="noreferrer" className="link">
-        <span className="linkText">Read Clerk documentation</span>
-      </a>
-      <a href="https://remixjs.org/docs" target="_blank" rel="noreferrer" className="link">
-        <span className="linkText">Read Remix documentation</span>
-      </a>
-    </div>
-  </main>
-);
-
-const Footer = () => (
-  <footer className="footer">
-    <a href="https://github.com/clerkinc/clerk-remix-starter" target="_blank" rel="noopener noreferrer">
-      Powered by <img src="/clerk.svg" alt="Clerk.dev" className="footer-logo" />
-      +
-      <img src="/remix.svg" alt="Remix" className="footer-logo-remix" />
-    </a>
-  </footer>
-);
+import { WrapperFull } from "~/components/WrapperFull";
 
 export default function Index() {
   return (
-    <div className="container">
-      <Main />
-      <Footer />
-    </div>
+    <WrapperFull>
+      <div className="pb-10">
+        <h1 className="text-shadow-lg text-center text-8xl font-bold uppercase text-slate-50">Smooth Jazz Stack</h1>
+        <p className="text-shadow-lg mt-6 text-center text-xl font-bold text-slate-100">
+          Minor friction, major performance, diminished complexity, augmented productivity
+        </p>
+        <SignedOut>
+          <div className="mt-6 flex flex-row items-center justify-center space-x-4">
+            <Link
+              to="/sign-in"
+              className="inline-block rounded bg-white px-7 py-3 text-center text-lg font-medium leading-snug text-blue-600 shadow-md transition duration-150 ease-in-out hover:bg-gray-100 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
+            >
+              Sign in
+            </Link>
+            <Link
+              to="/sign-up"
+              className="inline-block rounded bg-blue-600 px-7 py-3 text-center text-lg font-medium leading-snug text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
+            >
+              Sign up
+            </Link>
+          </div>
+        </SignedOut>
+        <SignedIn>
+          <div className="mt-6 flex flex-row items-center justify-center space-x-4">
+            <p className="px-7 py-3 text-center text-lg font-medium leading-snug text-slate-100">Signed in. Ya dig?</p>
+          </div>
+        </SignedIn>
+
+        <p className="text-shadow-lg mt-6 text-center text-lg font-bold text-slate-100">
+          Built with Remix, Tailwind, Clerk, and TypeScript. Deployed on Vercel.
+        </p>
+      </div>
+    </WrapperFull>
   );
 }

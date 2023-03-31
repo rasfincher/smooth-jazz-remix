@@ -1,9 +1,10 @@
 import { SignUp } from "@clerk/remix";
+import { WrapperFull } from "~/components/WrapperFull";
 
 export default function SignUpPage() {
   return (
-    <div className="container">
+    <WrapperFull>
       <SignUp path="/sign-up" routing="path" signInUrl="/sign-in" />
-    </div>
+    </WrapperFull>
   );
 }
