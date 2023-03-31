@@ -12,5 +12,3 @@ node_modules
 .idea
 
 package-lock.json
-
-prisma/seed.ts
