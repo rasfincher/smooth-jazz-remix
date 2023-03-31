@@ -5,7 +5,7 @@ import { ClerkApp, ClerkCatchBoundary } from "@clerk/remix";
 import stylesheet from "~/tailwind.css";
 
 export const meta: MetaFunction = () => {
-  return { title: "New Remix App" };
+  return { title: "Smooth Jazz Remix Stack" };
 };
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: stylesheet }];
