@@ -1,9 +1,24 @@
 import { SignedIn, SignedOut } from "@clerk/remix";
-import { Link } from "@remix-run/react";
+import { getAuth } from "@clerk/remix/ssr.server";
+import { LoaderFunction, json, redirect } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
+import { getUserByAuthUserId } from "~/models/user.server";
 
 import { WrapperFull } from "~/components/WrapperFull";
 
+export const loader: LoaderFunction = async (args) => {
+  const { userId } = await getAuth(args);
+
+  if (!userId) {
+    return redirect("/sign-in");
+  }
+  const user = await getUserByAuthUserId(userId);
+  return json({ user });
+};
+
 export default function Index() {
+  const loaded = useLoaderData<typeof loader>();
+  const user = loaded.user;
   return (
     <WrapperFull>
       <div className="pb-10">
@@ -29,7 +44,9 @@ export default function Index() {
         </SignedOut>
         <SignedIn>
           <div className="mt-6 flex flex-row items-center justify-center space-x-4">
-            <p className="px-7 py-3 text-center text-lg font-medium leading-snug text-slate-100">Signed in. Ya dig?</p>
+            <p className="px-7 py-3 text-center text-lg font-medium leading-snug text-slate-100">
+              Hello {user.name}, you're signed in. Ya dig?
+            </p>
           </div>
         </SignedIn>
 
@@ -39,4 +56,7 @@ export default function Index() {
       </div>
     </WrapperFull>
   );
+}
+function useLoaderDate<T>() {
+  throw new Error("Function not implemented.");
 }
