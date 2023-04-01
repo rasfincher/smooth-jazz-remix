@@ -1,20 +1,10 @@
 import { SignedIn, SignedOut, useUser } from "@clerk/remix";
-import { getAuth } from "@clerk/remix/ssr.server";
-import { LoaderFunction, json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link } from "@remix-run/react";
 
 import { WrapperFull } from "~/components/WrapperFull";
 
-export const loader: LoaderFunction = async (args) => {
-  const auth = await getAuth(args);
-  console.log("auth", auth.user);
-  return json(auth.user);
-};
-
 export default function Index() {
   const user = useUser();
-  const data = useLoaderData<typeof loader>();
-  console.log("data", data);
   return (
     <WrapperFull>
       <div className="pb-10">
