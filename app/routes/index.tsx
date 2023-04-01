@@ -1,24 +1,11 @@
-import { SignedIn, SignedOut } from "@clerk/remix";
+import { SignedIn, SignedOut, useUser } from "@clerk/remix";
 import { getAuth } from "@clerk/remix/ssr.server";
-import { LoaderFunction, json, redirect } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import { getUserByAuthUserId } from "~/models/user.server";
+import { Link } from "@remix-run/react";
 
 import { WrapperFull } from "~/components/WrapperFull";
 
-export const loader: LoaderFunction = async (args) => {
-  const { userId } = await getAuth(args);
-
-  if (!userId) {
-    return redirect("/sign-in");
-  }
-  const user = await getUserByAuthUserId(userId);
-  return json({ user });
-};
-
 export default function Index() {
-  const loaded = useLoaderData<typeof loader>();
-  const user = loaded.user;
+  const user = useUser();
   return (
     <WrapperFull>
       <div className="pb-10">
@@ -45,7 +32,7 @@ export default function Index() {
         <SignedIn>
           <div className="mt-6 flex flex-row items-center justify-center space-x-4">
             <p className="px-7 py-3 text-center text-lg font-medium leading-snug text-slate-100">
-              Hello {user.name}, you're signed in. Ya dig?
+              You're signed in. Ya dig?
             </p>
           </div>
         </SignedIn>
